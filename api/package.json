@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
+    "watch": "npx nodemon . --ignore ./sessions",
     "test": "npx mocha"
   },
   "author": "",
@@ -15,7 +17,9 @@
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
-    "typescript": "^3.9.7"
+    "morgan": "^1.10.0",
+    "typescript": "^3.9.7",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
