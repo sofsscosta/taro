@@ -1,5 +1,5 @@
 {
-  "name": "taro_app",
+  "name": "app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -31,5 +31,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "husky": "^4.2.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
   }
 }
