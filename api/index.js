@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-const { env: { PORT = 8080, NODE_ENV: env }, argv: [, , port = PORT] } = process
+const { env: { PORT = 8080, NODE_ENV: env, MONGODB_URL }, argv: [, , port = PORT] } = process
 
 const express = require('express')
 const cors = require('cors')
@@ -9,42 +9,46 @@ const fs = require('fs')
 const path = require('path')
 const winston = require('winston')
 const morgan = require('morgan')
+const mongoose = require('mongoose')
 const { name, version } = require('./package')
 const { graphqlHTTP } = require('express-graphql');
-const { CardsSchema, schema } = require('./Schemas/Card.ts')
+const { schema, CardsSchema } = require('./Schemas/Card.ts')
 
-const app = express()
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
 
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.File({ filename: 'server.log' })
-    ]
-})
+    const app = express()
+    const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
 
-if (env !== 'pro') {
-    logger.add(new winston.transports.Console({
-        format: winston.format.simple()
-    }))
-}
+    const logger = winston.createLogger({
+        level: 'info',
+        format: winston.format.json(),
+        transports: [
+            new winston.transports.File({ filename: 'server.log' })
+        ]
+    })
 
-const jsonBodyParser = bodyParser.json()
+    if (env !== 'pro') {
+        logger.add(new winston.transports.Console({
+            format: winston.format.simple()
+        }))
+    }
 
-app.use(morgan('combined', { stream: accessLogStream }))
+    const jsonBodyParser = bodyParser.json()
 
-app.use(cors())
+    app.use(morgan('combined', { stream: accessLogStream }))
 
-app.use('/graphql', graphqlHTTP({
-    schema: schema,
-    graphiql: true,
-  }));
-  
-app.listen(port, () => logger.info(`server ${name} ${version} up and running on port ${port}`))
+    app.use(cors())
 
-process.on('SIGINT', () => {
-    logger.info('server abruptly stopped')
+    app.use('/graphql', graphqlHTTP({
+        schema: CardsSchema,
+        graphiql: true,
+    }));
 
-    process.exit(0)
+    app.listen(port, () => logger.info(`server ${name} ${version} up and running on port ${port}`))
+
+    process.on('SIGINT', () => {
+        logger.info('server abruptly stopped')
+
+        process.exit(0)
+    })
 })
