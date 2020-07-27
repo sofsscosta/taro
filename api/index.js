@@ -10,10 +10,12 @@ const path = require('path')
 const winston = require('winston')
 const morgan = require('morgan')
 const { name, version } = require('./package')
+const { graphqlHTTP } = require('express-graphql');
+const { CardsSchema, schema } = require('./Schemas/Card.ts')
 
 const app = express()
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
-console.log(env)
+
 const logger = winston.createLogger({
     level: 'info',
     format: winston.format.json(),
@@ -34,6 +36,11 @@ app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(cors())
 
+app.use('/graphql', graphqlHTTP({
+    schema: schema,
+    graphiql: true,
+  }));
+  
 app.listen(port, () => logger.info(`server ${name} ${version} up and running on port ${port}`))
 
 process.on('SIGINT', () => {
