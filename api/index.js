@@ -4,6 +4,7 @@ const { env: { PORT = 8080, NODE_ENV: env }, argv: [, , port = PORT] } = process
 
 const express = require('express')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const fs = require('fs')
 const path = require('path')
 const winston = require('winston')
@@ -12,20 +13,22 @@ const { name, version } = require('./package')
 
 const app = express()
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
-
+console.log(env)
 const logger = winston.createLogger({
-    level: env === 'development' ? 'debug' : 'info',
+    level: 'info',
     format: winston.format.json(),
     transports: [
         new winston.transports.File({ filename: 'server.log' })
     ]
 })
 
-if (env !== 'production') {
+if (env !== 'pro') {
     logger.add(new winston.transports.Console({
         format: winston.format.simple()
     }))
 }
+
+const jsonBodyParser = bodyParser.json()
 
 app.use(morgan('combined', { stream: accessLogStream }))
 
