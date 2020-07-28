@@ -12,7 +12,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const { name, version } = require('./package')
 const { graphqlHTTP } = require('express-graphql');
-const { schema, CardsSchema } = require('./Schemas/Card.ts')
+const { CardsSchema } = require('./Schemas/Card.ts')
 
 mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
 

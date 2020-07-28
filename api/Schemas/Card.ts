@@ -1,3 +1,4 @@
+const Card = require('../models/card')
 const {
   GraphQLSchema,
   GraphQLObjectType,
@@ -6,74 +7,53 @@ const {
   GraphQLNonNull,
   GraphQLEnumType,
   GraphQLInterfaceType,
-  buildSchema
+  GraphQLID,
+  GraphQLInputObjectType
 } = require ('graphql');
-const Card = require('../models/card')
 
-const suiteEnum = new GraphQLEnumType({
-  name: 'Suite',
-  values: {
-    MAJOR_ARCANA: {
-      type: GraphQLString,
-      description: 'The most meaningful cards. Usually come up on moments of big life changes.',
-    },
-    WANDS: {
-      type: GraphQLString,
-      description: 'Connected to Fire energy. About action, conquering and passion.',
-    },
-    PENTACLES: {
-      type: GraphQLString,
-      description: 'Connected to Earth energy. About security, money and home.',
-    },
-    SWORDS: {
-      type: GraphQLString,
-      description: 'Connected to Air energy. About communication, change and painful events.',
-    },
-    CUPS: {
-      type: GraphQLString,
-      description: 'Connected to Water energy. About love, caring and dreaming.',
-    },
-  },
-});
+const { Schema, Types: { ObjectId } } = require('mongoose')
 
-const cardInterface = new GraphQLInterfaceType({
-  name: 'Interface',
+// const suiteEnum = new GraphQLEnumType({
+//   name: 'Suite',
+//   values: {
+//     MAJOR_ARCANA: {
+//       type: GraphQLString,
+//       description: 'The most meaningful cards. Usually come up on moments of big life changes.',
+//     },
+//     WANDS: {
+//       type: GraphQLString,
+//       description: 'Connected to Fire energy. About action, conquering and passion.',
+//     },
+//     PENTACLES: {
+//       type: GraphQLString,
+//       description: 'Connected to Earth energy. About security, money and home.',
+//     },
+//     SWORDS: {
+//       type: GraphQLString,
+//       description: 'Connected to Air energy. About communication, change and painful events.',
+//     },
+//     CUPS: {
+//       type: GraphQLString,
+//       description: 'Connected to Water energy. About love, caring and dreaming.',
+//     },
+//   },
+// });
+
+const cardInputType = new GraphQLInputObjectType({
+  name: 'CardInputType',
   fields: () => ({
-    id: {
-      type: GraphQLNonNull(GraphQLString)
-    },
-    name: {
-      type: GraphQLString
-    },
-    suite: {
-      type: GraphQLList(suiteEnum),
-      description: 'If major or minor arcana, and which suite in the latter.'
-    },
-    image: {
-      type: GraphQLString
-    },
-    description: {
-      type: GraphQLString
-    },
-    interpretation: {
-      type: GraphQLString
-    }
-  }),
-  resolve() { return new cardInterface(name, suite) }
-});
-
-const cardType = new GraphQLObjectType({
-  name: 'Card',
-  fields: () => ({
-    id: { type: GraphQLNonNull(GraphQLString)  },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
-    // suite: { type: GraphQLList(suiteEnum) }, 
     suite: { type: GraphQLString },   
     image: { type: GraphQLString },
     description: { type: GraphQLString },
     interpretation: { type: GraphQLString }
-  }),
-  // interfaces: [cardInterface],
+  })
+});
+
+const cardType = new GraphQLObjectType({
+  name: 'CardType',
+  fields: () => cardInputType.getFields()
 });
 
 const queryType = new GraphQLObjectType({
@@ -93,28 +73,12 @@ const queryType = new GraphQLObjectType({
     },
     cards:{
       type: new GraphQLList(cardType),
-      resolve() {
-          return Card.find({});
+      async resolve() {
+          return await Card.find({});
       }
   },
   })
 });
-
-// class CardConstructor {
-//   public name: string
-//   public suite: string
-//   public image: string
-//   public description: string
-//   public interpretation: string
-
-//   constructor(name: string, suite: string, image: string, description: string, interpretation: string) {
-//     this.name = name
-//     this.suite = suite
-//     this.image = image
-//     this.description = description
-//     this.interpretation = interpretation
-//   }
-// }
 
 const mutationType = new GraphQLObjectType({
   name: 'Mutation',
@@ -122,59 +86,53 @@ const mutationType = new GraphQLObjectType({
     createCard: {
       type: cardType,
       args: {
-        name: { type: new GraphQLNonNull(GraphQLString) },
-        suite: { type: new GraphQLNonNull(GraphQLString) },   
-        image: { type: new GraphQLNonNull(GraphQLString) },
-        description: { type: new GraphQLNonNull(GraphQLString) },
-        interpretation: { type: new GraphQLNonNull(GraphQLString) }
+        input: {
+          type: new GraphQLNonNull(cardInputType)
+        }
       },
-      async resolve(parent,args){
-        let card = new Card({
-            name: args.name,
-            suite: args.suite,
-            image: args.image,
-            description: args.description,
-            interpretation: args.interpretation
+      async resolve(_, args){
+        const { name, suite, image, description, interpretation } = args.input
+          let card = new Card({
+              name: name,
+              suite: suite,
+              image: image,
+              description: description,
+              interpretation: interpretation
+          })
+          return await card.save()
+      }
+    },
+    createCards: {
+      type: GraphQLList(cardType),
+      args: { 
+        input: {
+          type: new GraphQLNonNull(new GraphQLList(new GraphQLNonNull(cardInputType))),
+        }
+      },
+      async resolve(_, args){
+        const processedArgs = args.input
+        
+        processedArgs.map(arg => {
+          const card = new Card({
+              name: arg.name,
+              suite: arg.suite,
+              image: arg.image,
+              description: arg.description,
+              interpretation: arg.interpretation
+          })
+          return JSON.stringify(card)
         })
-        return await card.save()
+        await Card.insertMany(processedArgs)
+        return await Card.find({})
       }
     },
   }
 })
 
-var schema = buildSchema(`
-  input CardInput {
-    id: String,
-    name: String,
-    suite: String,
-    image: String,
-    description: String,
-    interpretation: String
-  }
-
-  type Card {
-    id: String,
-    name: String,
-    suite: String,
-    image: String,
-    description: String,
-    interpretation: String
-  }
-
-  type Query {
-    getCard(id: ID!): Card
-  }
-
-  type Mutation {
-    createCard(input: CardInput): Card
-    updateCard(id: ID!, input: CardInput): Card
-  }
-`);
-
 const CardsSchema = new GraphQLSchema({
   query: queryType,
-  types: [cardType],
-  mutation: mutationType
+  mutation: mutationType,
+  types: [cardType]
 });
 
-module.exports = { CardsSchema, schema } 
+module.exports = { CardsSchema } 
