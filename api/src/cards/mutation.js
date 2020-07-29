@@ -1,11 +1,11 @@
-const Card = require('data/models/card')
+const Card = require('../../data')
 const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLNonNull
 } = require ('graphql');
 
-const { cardInputType, cardType } = require('./typeDefs')
+const { cardInputType, cardType } = require('./types')
 const { createCard, createCards } = require('./resolvers')
 
 const mutationType = new GraphQLObjectType({

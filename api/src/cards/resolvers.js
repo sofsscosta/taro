@@ -1,13 +1,9 @@
-const { models: { Card } } = require('data')
+const { models: { Card } } = require('../../data')
+const { Types: { ObjectId } } = require('mongoose')
 
-const getCard = async id => await Card.findById(id);
+const getCard = async id => await Card.findOne({ _id: ObjectId(id) })
 
-const getCards = async () => {
-    console.log('got here')
-    const cards = await Card.find({});
-    console.log(cards)
-    return cards
-}
+const getCards = async () => await Card.find();
 
 const createCard = async (name, suite, image, description, interpretation) => {
     const card = new Card({

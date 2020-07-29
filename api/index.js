@@ -4,7 +4,6 @@ const { env: { PORT = 8080, NODE_ENV: env, MONGODB_URL }, argv: [, , port = PORT
 
 const express = require('express')
 const cors = require('cors')
-const bodyParser = require('body-parser')
 const fs = require('fs')
 const path = require('path')
 const winston = require('winston')
@@ -32,8 +31,6 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
             format: winston.format.simple()
         }))
     }
-
-    const jsonBodyParser = bodyParser.json()
 
     app.use(morgan('combined', { stream: accessLogStream }))
 

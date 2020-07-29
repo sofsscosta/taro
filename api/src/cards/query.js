@@ -1,11 +1,11 @@
-const { models: { Card } } = require('data')
+const { models: { Card } } = require('../../data')
 const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLList,
     GraphQLNonNull
 } = require ('graphql');
-const { cardType } = require('./typeDefs')
+const { cardType } = require('./types')
 const { getCard, getCards } = require('./resolvers')
 
 const queryType = new GraphQLObjectType({
@@ -14,18 +14,20 @@ const queryType = new GraphQLObjectType({
     card: {
       type: cardType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLString) },
-      },
-      async resolve(_, args) {
-        return await Card.findById(args.id);
+        id: {
+          type: GraphQLNonNull(GraphQLString),
+        }
+        },
+      resolve(_, args) {
+        return getCard(args.id)
       }
     },
     cards:{
       type: new GraphQLList(cardType),
-      async resolve() {
-        return await Card.find({});
+      resolve() {
+        return getCards()
       }
-  }
+  },
   })
 });
 
