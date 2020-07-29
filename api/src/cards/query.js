@@ -1,10 +1,9 @@
-const { models: { Card } } = require('../../data')
 const {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLList,
-    GraphQLNonNull
-} = require ('graphql');
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLList,
+  GraphQLNonNull
+} = require('graphql')
 const { cardType } = require('./types')
 const { getCard, getCards } = require('./resolvers')
 
@@ -15,20 +14,20 @@ const queryType = new GraphQLObjectType({
       type: cardType,
       args: {
         id: {
-          type: GraphQLNonNull(GraphQLString),
+          type: GraphQLNonNull(GraphQLString)
         }
-        },
-      resolve(_, args) {
+      },
+      resolve (_, args) {
         return getCard(args.id)
       }
     },
-    cards:{
+    cards: {
       type: new GraphQLList(cardType),
-      resolve() {
+      resolve () {
         return getCards()
       }
-  },
+    }
   })
-});
+})
 
 module.exports = { queryType }

@@ -1,3 +1,4 @@
 module.exports = {
-    models: require('./models'),
+  // eslint-disable-next-line global-require
+  models: require('./models')
 }
