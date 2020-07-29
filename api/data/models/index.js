@@ -1,3 +1,4 @@
 module.exports = {
-    Card: require('./card')
+  // eslint-disable-next-line global-require
+  Card: require('./card')
 }
