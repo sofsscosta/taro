@@ -1,9 +1,12 @@
 module.exports = {
+  parser: 'babel-eslint',
+
   env: {
     browser: true,
     es2020: true
   },
   extends: [
+    'plugin:prettier/recommended',
     'plugin:react/recommended',
     'standard'
   ],
@@ -15,8 +18,10 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: [
-    'react'
+    'react',
+    'prettier'
   ],
   rules: {
+    'prettier/prettier': 'error'
   }
 }
