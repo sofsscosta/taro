@@ -12,7 +12,7 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const { name, version } = require('./package')
 const { graphqlHTTP } = require('express-graphql');
-const { CardsSchema } = require('./Schemas/Card.ts')
+const { CardsSchema } = require('./src/cards')
 
 mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
 
@@ -40,8 +40,7 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
     app.use(cors())
 
     app.use('/graphql', graphqlHTTP({
-        schema: CardsSchema,
-        graphiql: true,
+        schema: CardsSchema
     }));
 
     app.listen(port, () => logger.info(`server ${name} ${version} up and running on port ${port}`))
