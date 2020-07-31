@@ -1,0 +1,34 @@
+@import components/style/config
+@import components/style/utils
+@import components/Home/style
+@import components/Card/style
+@import components/Carousel/style
+
+
+body
+    position: absolute
+    width: 100vw
+
+ul
+    list-style-type: none
+    padding-inline-start: 0
+
+*
+    margin: 0
+
+input
+    border: 0
+
+button
+    border-image: none
+    border: none
+    background: transparentize(white, 1) 
+
+.main
+    margin: 2vw
+    border: $border-width solid $main-color
+    border-radius: 2vh
+
+@font-face 
+  font-family: 'Source Code'
+  src: local('Source_Code_Pro'), url(./fonts/Source_Code_Pro/SourceCodePro-ExtraLight.ttf) format('truetype')

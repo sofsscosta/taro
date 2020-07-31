@@ -1,13 +1,46 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.title {
+  font-size: 5rem;
+  font-family: "Source Code", cursive;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.card {
+  height: 30vh;
+  width: 15vh;
 }
+
+body {
+  position: absolute;
+  width: 100vw;
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+* {
+  margin: 0;
+}
+
+input {
+  border: 0;
+}
+
+button {
+  border-image: none;
+  border: none;
+  background: rgba(255, 255, 255, 0);
+}
+
+.main {
+  margin: 2vw;
+  border: 3px solid #bfa276;
+  border-radius: 2vh;
+}
+
+@font-face {
+  font-family: "Source Code";
+  src: local("Source_Code_Pro"), url(./fonts/Source_Code_Pro/SourceCodePro-ExtraLight.ttf) format("truetype");
+}
+
+/*# sourceMappingURL=index.css.map */

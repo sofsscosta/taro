@@ -6,17 +6,15 @@ const HomeContainer = () => {
 
     const [data, setData] = useState()
     
-useEffect(() => 
-    (async () => {
-        const cards = await getCards()
-        console.log(cards)
-        setData(cards)
-    } )()
-, [])
+    useEffect(() => (
+        async () => {
+            const cards = await getCards()
+            setData(cards)
+        })()
+    , [])
 
-    return (
-        <Home cards={data}/>
-)}
+    return <Home cards={data}/>
+}
 
 
 export default HomeContainer

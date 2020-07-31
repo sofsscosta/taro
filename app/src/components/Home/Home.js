@@ -5,8 +5,8 @@ const Home = ({cards}) => {
     console.log(cards)
     return(
     <>
-        <h1>WOULD YOU LIKE TO...</h1>
-        {cards && cards.data.cards.map(card => <Card image={card.image}/>)}
+        <h1 className='title'>WOULD YOU LIKE TO...</h1>
+        {cards && cards.data.cards.map(card => <Card key={card.id} image={card.image}/>)}
     </>
 )}
 

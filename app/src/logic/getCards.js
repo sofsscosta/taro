@@ -1,16 +1,17 @@
-const query = `{
-    cards {
-      name
-      image
-      suite
-      description
-      interpretation
-    }
-  }`;
+// const query = `{
+//     cards {
+//       name
+//       image
+//       suite
+//       description
+//       interpretation
+//     }
+//   }`;
 
 const onlyImage = `{
     cards {
       image
+      id
     }
   }`;
 
