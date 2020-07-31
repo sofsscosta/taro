@@ -4,13 +4,13 @@ import Home from './';
 
 const HomeContainer = () => {
 
-    const [data, getData] = useState()
+    const [data, setData] = useState()
 
-    useEffect(async () => {
+    useEffect(() => 
+    (async () => {
         const cards = await getCards()
-        console.log(cards)
-        setData(cards);
-    }, [])
+        return setData(cards);
+    })(), [])
 
     return (
         <Home 
