@@ -7,12 +7,12 @@ import './App.css';
 
 const App = () => {
   return (
-    <>
+    <body>
       {/* <Provider store={store}> */}
         <Route exact path='/' render={() => <Redirect to="/home" />} />
         <Route path='/home' render={() => <HomeContainer/>} />
       {/* </Provider> */}
-    </>
+    </body>
   );
 }
 
