@@ -1,5 +1,5 @@
 import Card from './Card'
 import Carousel from './Carousel'
-import Home from './Home'
+import HomeContainer from './Home'
 
-export { Card, Carousel, Home }
+export { Card, Carousel, HomeContainer }
