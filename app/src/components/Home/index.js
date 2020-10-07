@@ -1,26 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import getCards from '../../logic';
-import Home from './Home';
+import React from 'react';
+// import PropTypes from 'prop-types';
+// import Card from '../Card';
+import CarouselContainer from '../Carousel';
+import strings from '../../locale/strings.json';
 
-const HomeContainer = () => {
-  const [data, setData] = useState();
-  const [selectedCard, setSelectedCard] = useState()
+const Home = () => (
+  <>
+    <h1 className="home_title">{strings.title}</h1>
+    <div className="home_container">
+      <CarouselContainer />
+    </div>
+  </>
+);
 
-  useEffect(
-    () =>
-      (async () => {
-        const cards = await getCards();
-        console.log(cards)
-        setData(cards);
-      })(),
-    []
-  );
+// Home.propTypes = {
+//   cards: PropTypes.shape({
+//     data: PropTypes.arrayOf({
+//       cards: PropTypes.shape({
+//         name: PropTypes.string.isRequired,
+//         suite: PropTypes.string.isRequired,
+//         image: PropTypes.string.isRequired,
+//         description: PropTypes.string.isRequired,
+//         interpretation: PropTypes.string.isRequired,
+//       }),
+//     }),
+//   }).isRequired,
+//   onClick: PropTypes.func.isRequired,
+//   selectedCard: PropTypes.string.isRequired,
+// };
 
-  const selectCard = card => {
-    setSelectedCard(card)
-  }
-
-  return <Home cards={data} onClick={selectCard} selectedCard={selectedCard}/>;
-};
-
-export default HomeContainer;
+export default Home;

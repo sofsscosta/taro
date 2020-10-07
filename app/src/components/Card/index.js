@@ -5,7 +5,6 @@ import cardsBack from '../../assets/images/cards_back.png';
 const Card = ({ image, selectedCard, onClick }) => (
   <img
     onClick={() => {
-      console.log(image);
       onClick(image);
     }}
     className="card"
