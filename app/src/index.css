@@ -1,9 +1,11 @@
 .home_title {
-  font-size: 20px;
-  font-family: "Source Code", cursive;
+  font-size: 50px;
+  font-weight: 50;
+  font-family: "Quicksand Light", sans-serif;
   text-align: center;
   margin-top: 7vh;
-  color: #9277c7;
+  padding: 0 5vw;
+  color: #cecece;
 }
 
 .home_container {
@@ -13,8 +15,17 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  padding: 5vh 4vw 5vh 5vw;
+  padding: 5vh 5vw;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.home_box {
+  background-color: #575757;
+  padding: 20vh 40vw;
+  height: 40vh;
+  padding-top: 10vh;
+  border-radius: 15px;
 }
 
 .card {
@@ -28,12 +39,23 @@
 }
 
 body {
-  background-color: #e3d1ff;
+  background-color: #353535;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 @font-face {
   font-family: "Source Code";
   src: local("Source_Code_Pro"), url(./fonts/Source_Code_Pro/SourceCodePro-ExtraLight.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Quicksand";
+  src: local("Quicksand"), url(./fonts/Quicksand/Quicksand-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Quicksand Light";
+  src: local("Quicksand"), url(./fonts/Quicksand/Quicksand-Light.ttf) format("truetype");
 }
 
 /*# sourceMappingURL=index.css.map */

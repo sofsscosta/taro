@@ -1,10 +1,12 @@
 @import ../style/config
 
 .home_title
-    font-size: 20px
+    font-size: $font-size-normal
+    font-weight: 50
     font-family: $main-font
     text-align: center
     margin-top: 7vh
+    padding: 0 5vw
     color: $taro-font-color
 
 .home_container
@@ -14,5 +16,13 @@
     flex-wrap: wrap
     align-items: center
     justify-content: center
-    padding: 5vh 4vw 5vh 5vw
+    padding: 5vh 5vw
     box-sizing: border-box
+    overflow: hidden
+
+.home_box
+    background-color: $taro-lightgrey
+    padding: 20vh 40vw
+    height: 40vh
+    padding-top: 10vh
+    border-radius: 15px
