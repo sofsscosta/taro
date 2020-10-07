@@ -1,3 +1,3 @@
 import getCards from './getCards';
 
-export { getCards };
+export default getCards;

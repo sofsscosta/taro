@@ -1,6 +1,6 @@
-import { createStore } from 'redux';
-import rootReducer from './reducers';
+// import { createStore } from 'redux';
+// import rootReducer from './reducers';
 
-const store = () => {}
+// const store = () => {}
 
-export default store
+// export default store

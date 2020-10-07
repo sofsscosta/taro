@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {getCards} from '../../logic'
-import Home from './Home'
+import React, { useState, useEffect } from 'react';
+import { getCards } from '../../logic';
+import Home from './Home';
 
 const HomeContainer = () => {
+  const [data, setData] = useState();
 
-    const [data, setData] = useState()
-    
-    useEffect(() => (
-        async () => {
-            const cards = await getCards()
-            setData(cards)
-        })()
-    , [])
+  useEffect(
+    () =>
+      (async () => {
+        const cards = await getCards();
+        setData(cards);
+      })(),
+    []
+  );
 
-    return <Home cards={data}/>
-}
+  return <Home cards={data} />;
+};
 
-
-export default HomeContainer
+export default HomeContainer;
