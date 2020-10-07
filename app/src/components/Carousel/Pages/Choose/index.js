@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-// import getCards from '../../.././../logic';
 import Choose from './Choose';
+// import useGetCards from '../../hooks/useGetCards';
 
 const ChooseContainer = ({ cards }) => {
   const [currentCard, setCurrentCard] = useState();

@@ -3,23 +3,15 @@ import getCards from '../../.././../logic';
 import Random from './Random';
 
 const RandomContainer = () => {
-  const [data, setData] = useState();
-  const [selectedCard, setSelectedCard] = useState()
+  const [data, setData] = useState([]);
+  const [selectedCard, setSelectedCard] = useState();
 
-  useEffect(
-    () =>
-      (async () => {
-        const cards = await getCards();
-        setData(cards);
-      })(),
-    []
-  );
+  const selectCard = (card) => {
+    selectedCard === card ? setSelectedCard() : setSelectedCard(card);
+  };
 
-  const selectCard = card => {
-    selectedCard === card ? setSelectedCard() : setSelectedCard(card)
-  }
-
-  return <Random cards={data} onClick={selectCard} selectedCard={selectedCard}/>;
+  if (data.length === 0) return null;
+  return <Random cards={data} onClick={selectCard} selectedCard={selectedCard} />;
 };
 
 export default RandomContainer;

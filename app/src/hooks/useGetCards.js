@@ -4,13 +4,15 @@ import getCards from '../logic';
 const useGetCards = () => {
   const [cards, setCards] = useState();
 
-  useEffect(
-    () =>
-      (async () => {
-        setCards(await getCards());
-      })(),
-    []
-  );
+  const getAllCards = async () => {
+    let response = await getCards();
+    setCards(response);
+  };
+
+  useEffect(() => {
+    getAllCards();
+  }, []);
+
   return cards;
 };
 
