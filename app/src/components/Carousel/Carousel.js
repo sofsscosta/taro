@@ -1,6 +1,6 @@
 import React from 'react';
 import TaroIcon from '../TaroIcon';
-import { ChooseContainer, RandomContainer, SpreadContainer } from './Pages';
+import { ChooseContainer } from './Pages';
 
 const Carousel = ({ page, data, goToPreviousPage, goToNextPage }) => {
   return (
