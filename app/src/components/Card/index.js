@@ -15,8 +15,12 @@ const Card = ({ image, selectedCard, onClick }) => (
 
 Card.propTypes = {
   image: PropTypes.string.isRequired,
-  selectedCard: PropTypes.string.isRequired,
+  selectedCard: PropTypes.string,
   onClick: PropTypes.func.isRequired,
+};
+
+Card.defaultProps = {
+  selectedCard: undefined
 };
 
 export default Card;
