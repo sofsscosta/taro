@@ -2,7 +2,7 @@ import React from 'react';
 import TaroIcon from '../TaroIcon';
 import { ChooseContainer, RandomContainer, SpreadContainer } from './Pages';
 
-const Carousel = ({ page, goToPreviousPage, goToNextPage, goToPage }) => {
+const Carousel = ({ page, goToPreviousPage, goToNextPage, goToPage, goingToPreviousPage, goingToNextPage }) => {
   return (
     <div className="carousel">
       <div className="carousel__container">
@@ -11,7 +11,7 @@ const Carousel = ({ page, goToPreviousPage, goToNextPage, goToPage }) => {
         </div>
         {page === 'choose' && (
           <div className="animation">
-            <ChooseContainer />
+            <ChooseContainer goingToPreviousPage={goingToPreviousPage} goingToNextPage={goingToNextPage}/>
           </div>
         )}
         <div className="arrow-container">

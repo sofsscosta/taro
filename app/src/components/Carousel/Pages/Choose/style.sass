@@ -7,29 +7,23 @@
     border-radius: 15px
     padding-left: 1vw
     padding-top: 1vw
-    animation-name: example
-    animation-duration: 4s
 
-@keyframes example
+.rightToLeft
+    animation-name: rightToLeft
+    animation-duration: 0.5s
+
+.leftToRight
+    animation-name: leftToRight
+    animation-duration: 0.5s
+
+@keyframes rightToLeft
     from
-        transform: translateX(0%)
-    to
         transform: translateX(-200%)
+    to
+        transform: translateX(0%)
 
-@keyframes slide-1
-    0%
-        transform: translate3d(50%, 50%, 50%)
-        opacity: 0
-
-    100%
-        transform: translate3d(100%, 0, 0)
-        opacity: 1
-
-@keyframes slide-2
-    0%
-        transform: translate3d(0, 0, 0)
-        opacity: 0
-
-    100%
-        transform: translate3d(200%, 0, 0)
-        opacity: 1
+@keyframes leftToRight
+    from
+        transform: translateX(200%)
+    to
+        transform: translateX(0%)
