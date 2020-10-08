@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TaroIcon = ({ action, icon, name }) => (
-  <div className={name} onClick={action || undefined}>
-    <i className={icon} aria-hidden="true"></i>
+  <div className={name} onClick={action}>
+    <FontAwesomeIcon className={name} icon={icon} />
   </div>
 );
 
