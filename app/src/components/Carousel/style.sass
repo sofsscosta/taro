@@ -1,7 +1,9 @@
 @import ../style/config
-    
+@import ../style/utils
+@import ./Pages/style
+
 .carousel
-    +flex(row, center, center)
+    +flex(column, center, center)
     width: 100vw
 
     &__container
@@ -9,10 +11,15 @@
         width: 90vw
 
         .arrow-container
-            background-color: black
+            background-color: $taro-darkGrey
             width: 30px
             height: 30px
             border-radius: 15px
             display: flex
             justify-content: center
             align-items: center
+
+    .dots
+        +flex(row, space-between, center)
+        height: 5vh
+        width: 5vw

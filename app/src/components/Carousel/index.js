@@ -15,7 +15,9 @@ const CarouselContainer = () => {
     else setPage(orderedPages[orderedPages.indexOf(page) + 1]);
   };
 
-  return <Carousel page={page} goToPreviousPage={onGoToPreviousPage} goToNextPage={onGoToNextPage} />;
+  const goToPage = (page) => setPage(page);
+
+  return <Carousel page={page} goToPreviousPage={onGoToPreviousPage} goToNextPage={onGoToNextPage} goToPage={goToPage}/>;
 };
 
 export default CarouselContainer;

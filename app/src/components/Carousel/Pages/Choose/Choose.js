@@ -3,7 +3,7 @@ import Card from '../../../Card';
 
 const Choose = ({ cards, onClick, selectedCard }) => {
   return (
-    <div className="home_box">
+    <div className="home_box animation">
       {cards &&
         cards.data.cards.map((card) => (
           <Card key={card.id} image={card.image} onClick={onClick} selectedCard={selectedCard} />
