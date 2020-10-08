@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+// import { Provider } from 'react-redux';
+// import store from './redux/store'
+import { Route, withRouter, Redirect } from 'react-router-dom';
+import { Home } from './components';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronRight, faChevronLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+library.add(faChevronRight, faChevronLeft, faCircle)
 
-export default App;
+const App = () => (
+  <body>
+    {/* <Provider store={store}> */}
+    <Route exact path="/" render={() => <Redirect to="/home" />} />
+    <Route path="/home" render={() => <Home />} />
+    {/* </Provider> */}
+  </body>
+);
+
+export default withRouter(App);
