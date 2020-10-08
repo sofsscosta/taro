@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Choose from './Choose';
-// import useGetCards from '../../hooks/useGetCards';
+import useGetCards from '../../../../hooks/useGetCards';
 
-const ChooseContainer = ({ cards }) => {
+const ChooseContainer = () => {
   const [currentCard, setCurrentCard] = useState();
 
-  const selectCard = (card) => {
-    currentCard === card ? setCurrentCard() : setCurrentCard(card);
-  };
+  const cards = useGetCards();
 
-  return <Choose cards={cards} onClick={selectCard} currentCard={currentCard} />;
+  const selectCard = (card) => (currentCard === card ? setCurrentCard() : setCurrentCard(card));
+
+  return <Choose cards={cards} onClick={selectCard} selectedCard={currentCard} />;
 };
 
 export default ChooseContainer;

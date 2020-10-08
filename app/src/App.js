@@ -4,6 +4,10 @@ import React from 'react';
 import { Route, withRouter, Redirect } from 'react-router-dom';
 import { Home } from './components';
 import './App.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronRight, faChevronLeft, faCircle } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faChevronRight, faChevronLeft, faCircle)
 
 const App = () => (
   <body>

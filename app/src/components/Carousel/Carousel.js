@@ -2,14 +2,18 @@ import React from 'react';
 import TaroIcon from '../TaroIcon';
 import { ChooseContainer } from './Pages';
 
-const Carousel = ({ page, data, goToPreviousPage, goToNextPage }) => {
+const Carousel = ({ page, goToPreviousPage, goToNextPage }) => {
   return (
     <div className="carousel">
-      <div className="arrows-container">
-        <TaroIcon name="chevronLeft" action={goToPreviousPage} icon="fas fa-chevron-left" />
-        <TaroIcon name="chevronRight" action={goToNextPage} icon="fas fa-chevron-right" />
+      <div className="carousel__container">
+        <div className="arrow-container">
+          <TaroIcon action={goToPreviousPage} icon="chevron-left" color="white" />
+        </div>
+        {page === 'choose' && <ChooseContainer />}
+        <div className="arrow-container">
+          <TaroIcon action={goToNextPage} icon="chevron-right" color="white" />
+        </div>
       </div>
-      {page === 'choose' && <ChooseContainer cards={data}/>}
     </div>
   );
 };
