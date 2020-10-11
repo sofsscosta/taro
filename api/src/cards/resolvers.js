@@ -6,10 +6,7 @@ const getCard = async (id) => Card.findOne({ _id: ObjectId(id) })
 
 const getCards = async () => {
   const cards = await Card.find()
-  console.log(cards.length)
-  const newArray = arrayRandomizer(cards)
-  console.log(newArray.length)
-  return newArray
+  return arrayRandomizer(cards)
 }
 
 const createCard = async (name, suite, image, description, interpretation) => {
