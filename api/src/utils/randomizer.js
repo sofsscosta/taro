@@ -1,12 +1,7 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-loop-func */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable guard-for-in */
-/* eslint-disable no-undef */
 const arrayRandomizer = (array) => {
   const randomNumbers = []
   const reorganizedArray = []
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < array.length; i++) {
     const getRandomNumber = () => {
       const randomNumber = Math.floor(Math.random() * array.length)
