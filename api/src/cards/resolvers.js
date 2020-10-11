@@ -1,9 +1,13 @@
 const { Types: { ObjectId } } = require('mongoose')
 const { models: { Card } } = require('../../data')
+const { arrayRandomizer } = require('../utils/randomizer')
 
 const getCard = async (id) => Card.findOne({ _id: ObjectId(id) })
 
-const getCards = async () => Card.find()
+const getCards = async () => {
+  const cards = await Card.find()
+  return arrayRandomizer(cards)
+}
 
 const createCard = async (name, suite, image, description, interpretation) => {
   const card = new Card({
